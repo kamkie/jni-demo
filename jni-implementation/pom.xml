@@ -17,38 +17,65 @@
             <artifactId>jni-bindings</artifactId>
         </dependency>
     </dependencies>
+    <properties>
+        <cmake.path>${env.CMAKE_HOME}/cmake.exe</cmake.path>
+        <cmake.generator>MinGW Makefiles</cmake.generator>
+    </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>com.googlecode.cmake-maven-project</groupId>
-                <artifactId>cmake-maven-plugin</artifactId>
-                <version>2.8.11-b4</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>cmake-compile</id>
+                        <id>generate</id>
                         <goals>
-                            <goal>compile</goal>
+                            <goal>exec</goal>
                         </goals>
+                        <phase>generate-sources</phase>
                         <configuration>
-                            <config>
-                                <!-- Optional: the build configuration (e.g. "Release|x64") -->
-                            </config>
-                            <target>
-                                <!-- Optional: the build "target" -->
-                            </target>
-                            <projectDirectory>
-
-                                <!-- "targetPath" from the "generate" goal -->
-                            </projectDirectory>
-                            <environmentVariables>
-                                <key>value</key>
-                            </environmentVariables>
+                            <executable>${cmake.path}</executable>
+                            <workingDirectory>${project.build.directory}</workingDirectory>
+                            <arguments>
+                                <argument>-G</argument>
+                                <argument>${cmake.generator}</argument>
+                                <argument>${project.basedir}/src/main/native</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <executable>${cmake.path}</executable>
+                            <workingDirectory>${project.build.directory}</workingDirectory>
+                            <arguments>
+                                <argument>--build</argument>
+                                <argument>.</argument>
+                                <argument>--target</argument>
+                                <argument>all</argument>
+                                <argument>--</argument>
+                                <argument>-j</argument>
+                                <argument>8</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>target/lib</directory>
+                <includes>
+                    <include>*</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>

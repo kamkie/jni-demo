@@ -23,7 +23,7 @@ public class JniMain {
     }
 
     private static void testArray(ExecutorService executorService) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             final int loop = i;
             executorService.execute(() -> {
                 int[] input = new int[1000000];

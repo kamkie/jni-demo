@@ -3,7 +3,7 @@ package net.devops.demo.jni.bindings;
 public class HelloWorldJni {
 
     static {
-        System.loadLibrary("libHelloWorldJni");
+        NativeLibUtils.loadLibFromJar("libHelloWorldJni");
     }
 
     public native double parallel();
