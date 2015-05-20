@@ -15,7 +15,7 @@ public class NativeLibUtils {
         try {
             InputStream resourceAsStream = NativeLibUtils.class.getClassLoader().getResourceAsStream(libName + ".dll");
             if (resourceAsStream == null) {
-                throw new IOException("library " + libName + "not found");
+                throw new IOException("library " + libName + " not found");
             }
             Path tempFile = Files.createTempFile(null, ".lib.tmp");
             long libLenght = Files.copy(resourceAsStream, tempFile, StandardCopyOption.REPLACE_EXISTING);

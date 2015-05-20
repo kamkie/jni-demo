@@ -9,7 +9,7 @@ find_package (Threads)
 find_package(Java REQUIRED)
 FIND_PACKAGE(JNI REQUIRED)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp -Wl,--kill-at -I\"C:/Program Files/Java/jdk1.8.0_45/include\" -I\"C:/Program Files/Java/jdk1.8.0_45/include/win32\"")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp -I\"C:/Program Files/Java/jdk1.8.0_45/include\" -I\"C:/Program Files/Java/jdk1.8.0_45/include/win32\"")
 
 set(SOURCE_FILES net_devops_demo_jni_bindings_HelloWorldJni.cpp)
 
