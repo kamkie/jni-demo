@@ -12,8 +12,15 @@ import java.nio.file.StandardCopyOption;
 public class NativeLibUtils {
 
     public static void loadLibFromJar(String libName) {
+        String property = System.getProperty("os.name");
+        boolean isWindows = false;
+        if (property != null && property.toUpperCase().contains("Windows".toUpperCase())) {
+            isWindows = true;
+        }
+
         try {
-            InputStream resourceAsStream = NativeLibUtils.class.getClassLoader().getResourceAsStream(libName + ".dll");
+            String extension = isWindows ? ".dll" : ".so";
+            InputStream resourceAsStream = NativeLibUtils.class.getClassLoader().getResourceAsStream(libName + extension);
             if (resourceAsStream == null) {
                 throw new IOException("library " + libName + " not found");
             }

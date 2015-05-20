@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.0.2)
 project(jni_demo_native)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../../../target/lib)
@@ -9,7 +9,7 @@ find_package (Threads)
 find_package(Java REQUIRED)
 FIND_PACKAGE(JNI REQUIRED)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp -I\"C:/Program Files/Java/jdk1.8.0_45/include\" -I\"C:/Program Files/Java/jdk1.8.0_45/include/win32\"")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp -I\"$ENV{JAVA_HOME}/include\" -I\"$ENV{JAVA_HOME}/include/win32\" -I\"$ENV{JAVA_HOME}/include/linux\"")
 
 set(SOURCE_FILES net_devops_demo_jni_bindings_HelloWorldJni.cpp)
 
