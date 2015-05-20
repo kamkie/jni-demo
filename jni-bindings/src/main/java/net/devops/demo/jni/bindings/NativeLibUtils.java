@@ -20,8 +20,7 @@ public class NativeLibUtils {
 
         try {
             String extension = isWindows ? ".dll" : ".so";
-            String prefix = isWindows ? "" : "lib";
-            InputStream resourceAsStream = NativeLibUtils.class.getClassLoader().getResourceAsStream(prefix + libName + extension);
+            InputStream resourceAsStream = NativeLibUtils.class.getClassLoader().getResourceAsStream(libName + extension);
             if (resourceAsStream == null) {
                 throw new IOException("library " + libName + " not found");
             }
