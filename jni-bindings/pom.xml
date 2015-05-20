@@ -11,5 +11,35 @@
 
     <artifactId>jni-bindings</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <exportAntProperties>true</exportAntProperties>
+                            <target>
+                                <property name="runtime_classpath" refid="maven.compile.classpath"/>
+                                <exec executable="javah">
+                                    <arg value="-cp"/>
+                                    <arg value="${runtime_classpath}"/>
+                                    <arg value="-d"/>
+                                    <arg value="${project.basedir}/../jni-implementation/src/main/native"/>
+                                    <arg value="net.devops.demo.jni.bindings.HelloWorldJni"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

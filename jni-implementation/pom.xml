@@ -11,5 +11,44 @@
 
     <artifactId>jni-implementation</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>net.devops</groupId>
+            <artifactId>jni-bindings</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.googlecode.cmake-maven-project</groupId>
+                <artifactId>cmake-maven-plugin</artifactId>
+                <version>2.8.11-b4</version>
+                <executions>
+                    <execution>
+                        <id>cmake-compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <config>
+                                <!-- Optional: the build configuration (e.g. "Release|x64") -->
+                            </config>
+                            <target>
+                                <!-- Optional: the build "target" -->
+                            </target>
+                            <projectDirectory>
+
+                                <!-- "targetPath" from the "generate" goal -->
+                            </projectDirectory>
+                            <environmentVariables>
+                                <key>value</key>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
