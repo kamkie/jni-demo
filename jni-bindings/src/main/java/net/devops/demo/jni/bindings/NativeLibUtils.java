@@ -27,7 +27,7 @@ public class NativeLibUtils {
             Path tempFile = Files.createTempFile(null, ".lib.tmp");
             long libLenght = Files.copy(resourceAsStream, tempFile, StandardCopyOption.REPLACE_EXISTING);
             System.load(tempFile.toAbsolutePath().toString());
-            log.info("loaded libraray {} with size {}", libName, libLenght);
+            log.info("loaded library {} with size {}", libName, libLenght);
         } catch (IOException e) {
             log.error("error loading native library " + libName, e);
         }
