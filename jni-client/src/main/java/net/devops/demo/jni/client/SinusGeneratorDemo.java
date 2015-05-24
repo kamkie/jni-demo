@@ -3,8 +3,10 @@ package net.devops.demo.jni.client;
 import lombok.extern.slf4j.Slf4j;
 import net.devops.demo.jni.bindings.SinusGenerator;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.*;
-import java.util.stream.IntStream;
 
 @Slf4j
 public class SinusGeneratorDemo {
@@ -29,12 +31,21 @@ public class SinusGeneratorDemo {
         long startTime = System.currentTimeMillis();
         log.debug("testCppOpenMp: start time= {}", startTime);
 
-        IntStream.range(0, NUMBER_OF_ITERATIONS).mapToObj(i -> executorService.submit(() -> {
-            long start = System.currentTimeMillis();
-            double[] sinus = sinusGenerator.cppOpenMp(SIN_SIZE);
-            long time = System.currentTimeMillis() - start;
-            log.info("testCppOpenMp: i: {}\ttime: {}", i, time);
-        })).forEach(this::safeGetFuture);
+        List<Future> futures = Collections.synchronizedList(new ArrayList<>());
+        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+            final int loop = i;
+            Future<?> submit = executorService.submit(() -> {
+                long start = System.currentTimeMillis();
+                double[] sinus = sinusGenerator.cppOpenMp(SIN_SIZE);
+                long time = System.currentTimeMillis() - start;
+                log.info("testCppOpenMp: i: {}\ttime: {}", loop, time);
+            });
+            futures.add(submit);
+        }
+
+        for (Future future : futures) {
+            future.get();
+        }
 
         long stopTime = System.currentTimeMillis();
         log.debug("testCppOpenMp: stop time={}", stopTime);
@@ -45,12 +56,21 @@ public class SinusGeneratorDemo {
         long startTime = System.currentTimeMillis();
         log.debug("testCppSequential: start time= {}", startTime);
 
-        IntStream.range(0, NUMBER_OF_ITERATIONS).mapToObj(i -> executorService.submit(() -> {
-            long start = System.currentTimeMillis();
-            double[] sinus = sinusGenerator.cppSequential(SIN_SIZE);
-            long time = System.currentTimeMillis() - start;
-            log.info("testCppSequential: i: {}\ttime: {}", i, time);
-        })).forEach(this::safeGetFuture);
+        List<Future> futures = Collections.synchronizedList(new ArrayList<>());
+        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+            final int loop = i;
+            Future<?> submit = executorService.submit(() -> {
+                long start = System.currentTimeMillis();
+                double[] sinus = sinusGenerator.cppSequential(SIN_SIZE);
+                long time = System.currentTimeMillis() - start;
+                log.info("testCppSequential: i: {}\ttime: {}", loop, time);
+            });
+            futures.add(submit);
+        }
+
+        for (Future future : futures) {
+            future.get();
+        }
 
         long stopTime = System.currentTimeMillis();
         log.debug("testCppSequential: stop time={}", stopTime);
@@ -61,12 +81,21 @@ public class SinusGeneratorDemo {
         long startTime = System.currentTimeMillis();
         log.debug("testJavaMath: start time= {}", startTime);
 
-        IntStream.range(0, NUMBER_OF_ITERATIONS).mapToObj(i -> executorService.submit(() -> {
-            long start = System.currentTimeMillis();
-            double[] sinus = sinusGenerator.javaMath(SIN_SIZE);
-            long time = System.currentTimeMillis() - start;
-            log.info("testJavaMath: i: {}\ttime: {}", i, time);
-        })).forEach(this::safeGetFuture);
+        List<Future> futures = Collections.synchronizedList(new ArrayList<>());
+        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+            final int loop = i;
+            Future<?> submit = executorService.submit(() -> {
+                long start = System.currentTimeMillis();
+                double[] sinus = sinusGenerator.javaMath(SIN_SIZE);
+                long time = System.currentTimeMillis() - start;
+                log.info("testJavaMath: i: {}\ttime: {}", loop, time);
+            });
+            futures.add(submit);
+        }
+
+        for (Future future : futures) {
+            future.get();
+        }
 
         long stopTime = System.currentTimeMillis();
         log.debug("testJavaMath: stop time={}", stopTime);
@@ -77,12 +106,21 @@ public class SinusGeneratorDemo {
         long startTime = System.currentTimeMillis();
         log.debug("testJavaFastMath: start time= {}", startTime);
 
-        IntStream.range(0, NUMBER_OF_ITERATIONS).mapToObj(i -> executorService.submit(() -> {
-            long start = System.currentTimeMillis();
-            double[] sinus = sinusGenerator.javaFastMath(SIN_SIZE);
-            long time = System.currentTimeMillis() - start;
-            log.info("testJavaFastMath: i: {}\ttime: {}", i, time);
-        })).forEach(this::safeGetFuture);
+        List<Future> futures = Collections.synchronizedList(new ArrayList<>());
+        for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
+            final int loop = i;
+            Future<?> submit = executorService.submit(() -> {
+                long start = System.currentTimeMillis();
+                double[] sinus = sinusGenerator.javaFastMath(SIN_SIZE);
+                long time = System.currentTimeMillis() - start;
+                log.info("testJavaFastMath: i: {}\ttime: {}", loop, time);
+            });
+            futures.add(submit);
+        }
+
+        for (Future future : futures) {
+            future.get();
+        }
 
         long stopTime = System.currentTimeMillis();
         log.debug("testJavaFastMath: stop time={}", stopTime);
