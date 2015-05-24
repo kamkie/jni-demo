@@ -36,7 +36,7 @@ public class SinusGeneratorDemo {
             final int loop = i;
             Future<?> submit = executorService.submit(() -> {
                 long start = System.currentTimeMillis();
-                double[] sinus = sinusGenerator.cppOpenMp(SIN_SIZE);
+                double[] output = sinusGenerator.cppOpenMp(SIN_SIZE);
                 long time = System.currentTimeMillis() - start;
                 log.info("testCppOpenMp: i: {}\ttime: {}", loop, time);
             });
@@ -61,7 +61,7 @@ public class SinusGeneratorDemo {
             final int loop = i;
             Future<?> submit = executorService.submit(() -> {
                 long start = System.currentTimeMillis();
-                double[] sinus = sinusGenerator.cppSequential(SIN_SIZE);
+                double[] output = sinusGenerator.cppSequential(SIN_SIZE);
                 long time = System.currentTimeMillis() - start;
                 log.info("testCppSequential: i: {}\ttime: {}", loop, time);
             });
@@ -86,7 +86,7 @@ public class SinusGeneratorDemo {
             final int loop = i;
             Future<?> submit = executorService.submit(() -> {
                 long start = System.currentTimeMillis();
-                double[] sinus = sinusGenerator.javaMath(SIN_SIZE);
+                double[] output = sinusGenerator.javaMath(SIN_SIZE);
                 long time = System.currentTimeMillis() - start;
                 log.info("testJavaMath: i: {}\ttime: {}", loop, time);
             });
@@ -111,7 +111,7 @@ public class SinusGeneratorDemo {
             final int loop = i;
             Future<?> submit = executorService.submit(() -> {
                 long start = System.currentTimeMillis();
-                double[] sinus = sinusGenerator.javaFastMath(SIN_SIZE);
+                double[] output = sinusGenerator.javaFastMath(SIN_SIZE);
                 long time = System.currentTimeMillis() - start;
                 log.info("testJavaFastMath: i: {}\ttime: {}", loop, time);
             });
