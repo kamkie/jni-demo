@@ -11,8 +11,6 @@ FIND_PACKAGE(JNI REQUIRED)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp -I\"$ENV{JAVA_HOME}/include\" -I\"$ENV{JAVA_HOME}/include/win32\" -I\"$ENV{JAVA_HOME}/include/linux\"")
 
-set(SOURCE_FILES net_devops_demo_jni_bindings_HelloWorldJni.cpp)
-
-add_library(HelloWorldJni SHARED net_devops_demo_jni_bindings_HelloWorldJni.h net_devops_demo_jni_bindings_HelloWorldJni.cpp)
-target_link_libraries (HelloWorldJni ${CMAKE_THREAD_LIBS_INIT})
-SET_TARGET_PROPERTIES(HelloWorldJni PROPERTIES PREFIX "")
+add_library(SinusGenerator SHARED net_devops_demo_jni_bindings_SinusGenerator.h net_devops_demo_jni_bindings_SinusGenerator.cpp)
+target_link_libraries (SinusGenerator ${CMAKE_THREAD_LIBS_INIT})
+SET_TARGET_PROPERTIES(SinusGenerator PROPERTIES PREFIX "")

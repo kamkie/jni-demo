@@ -13,6 +13,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
@@ -43,7 +48,7 @@
                                     <arg value="${runtime_classpath}"/>
                                     <arg value="-d"/>
                                     <arg value="${project.basedir}/../jni-implementation/src/main/native"/>
-                                    <arg value="net.devops.demo.jni.bindings.HelloWorldJni"/>
+                                    <arg value="net.devops.demo.jni.bindings.SinusGenerator"/>
                                 </exec>
                             </target>
                         </configuration>
