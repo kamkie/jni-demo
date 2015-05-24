@@ -20,6 +20,10 @@ public class MassiveComputationDemo {
 
     public MassiveComputationDemo() throws Exception {
         data = new double[DATA_SIZE];
+        for (int i = 0; i < DATA_SIZE; i++) {
+            data[i] = i / 1000;
+        }
+
         Future<?> future = executorService.submit(() -> {
             massiveComputation.cppOpenMp(data);
             massiveComputation.cppSequential(data);
@@ -40,7 +44,7 @@ public class MassiveComputationDemo {
                 long start = System.currentTimeMillis();
                 double[] output = massiveComputation.cppOpenMp(data);
                 long time = System.currentTimeMillis() - start;
-                log.info("testCppOpenMp: i: {}\ttime: {}", loop, time);
+                log.debug("testCppOpenMp: i: {}\ttime: {}", loop, time);
             });
             futures.add(submit);
         }
@@ -51,7 +55,7 @@ public class MassiveComputationDemo {
 
         long stopTime = System.currentTimeMillis();
         log.debug("testCppOpenMp: stop time={}", stopTime);
-        log.info("testCppOpenMp: time={}\n", stopTime - startTime);
+        log.info("testCppOpenMp: time={}", stopTime - startTime);
     }
 
     public void testCppSequential() throws Exception {
@@ -65,7 +69,7 @@ public class MassiveComputationDemo {
                 long start = System.currentTimeMillis();
                 double[] output = massiveComputation.cppSequential(data);
                 long time = System.currentTimeMillis() - start;
-                log.info("testCppSequential: i: {}\ttime: {}", loop, time);
+                log.debug("testCppSequential: i: {}\ttime: {}", loop, time);
             });
             futures.add(submit);
         }
@@ -76,7 +80,7 @@ public class MassiveComputationDemo {
 
         long stopTime = System.currentTimeMillis();
         log.debug("testCppSequential: stop time={}", stopTime);
-        log.info("testCppSequential: time={}\n", stopTime - startTime);
+        log.info("testCppSequential: time={}", stopTime - startTime);
     }
 
     public void testJavaMath() throws Exception {
@@ -90,7 +94,7 @@ public class MassiveComputationDemo {
                 long start = System.currentTimeMillis();
                 double[] output = massiveComputation.javaMath(data);
                 long time = System.currentTimeMillis() - start;
-                log.info("testJavaMath: i: {}\ttime: {}", loop, time);
+                log.debug("testJavaMath: i: {}\ttime: {}", loop, time);
             });
             futures.add(submit);
         }
@@ -101,7 +105,7 @@ public class MassiveComputationDemo {
 
         long stopTime = System.currentTimeMillis();
         log.debug("testJavaMath: stop time={}", stopTime);
-        log.info("testJavaMath: time={}\n", stopTime - startTime);
+        log.info("testJavaMath: time={}", stopTime - startTime);
     }
 
     public void testJavaFastMath() throws Exception {
@@ -115,7 +119,7 @@ public class MassiveComputationDemo {
                 long start = System.currentTimeMillis();
                 double[] output = massiveComputation.javaFastMath(data);
                 long time = System.currentTimeMillis() - start;
-                log.info("testJavaFastMath: i: {}\ttime: {}", loop, time);
+                log.debug("testJavaFastMath: i: {}\ttime: {}", loop, time);
             });
             futures.add(submit);
         }
@@ -126,7 +130,7 @@ public class MassiveComputationDemo {
 
         long stopTime = System.currentTimeMillis();
         log.debug("testJavaFastMath: stop time={}", stopTime);
-        log.info("testJavaFastMath: time={}\n", stopTime - startTime);
+        log.info("testJavaFastMath: time={}", stopTime - startTime);
     }
 
     public void shutdown() throws Exception {

@@ -38,7 +38,7 @@ public class SinusGeneratorDemo {
                 long start = System.currentTimeMillis();
                 double[] output = sinusGenerator.cppOpenMp(SIN_SIZE);
                 long time = System.currentTimeMillis() - start;
-                log.info("testCppOpenMp: i: {}\ttime: {}", loop, time);
+                log.debug("testCppOpenMp: i: {}\ttime: {}", loop, time);
             });
             futures.add(submit);
         }
@@ -49,7 +49,7 @@ public class SinusGeneratorDemo {
 
         long stopTime = System.currentTimeMillis();
         log.debug("testCppOpenMp: stop time={}", stopTime);
-        log.info("testCppOpenMp: time={}\n", stopTime - startTime);
+        log.info("testCppOpenMp: time={}", stopTime - startTime);
     }
 
     public void testCppSequential() throws Exception {
@@ -63,7 +63,7 @@ public class SinusGeneratorDemo {
                 long start = System.currentTimeMillis();
                 double[] output = sinusGenerator.cppSequential(SIN_SIZE);
                 long time = System.currentTimeMillis() - start;
-                log.info("testCppSequential: i: {}\ttime: {}", loop, time);
+                log.debug("testCppSequential: i: {}\ttime: {}", loop, time);
             });
             futures.add(submit);
         }
@@ -74,7 +74,7 @@ public class SinusGeneratorDemo {
 
         long stopTime = System.currentTimeMillis();
         log.debug("testCppSequential: stop time={}", stopTime);
-        log.info("testCppSequential: time={}\n", stopTime - startTime);
+        log.info("testCppSequential: time={}", stopTime - startTime);
     }
 
     public void testJavaMath() throws Exception {
@@ -88,7 +88,7 @@ public class SinusGeneratorDemo {
                 long start = System.currentTimeMillis();
                 double[] output = sinusGenerator.javaMath(SIN_SIZE);
                 long time = System.currentTimeMillis() - start;
-                log.info("testJavaMath: i: {}\ttime: {}", loop, time);
+                log.debug("testJavaMath: i: {}\ttime: {}", loop, time);
             });
             futures.add(submit);
         }
@@ -99,7 +99,7 @@ public class SinusGeneratorDemo {
 
         long stopTime = System.currentTimeMillis();
         log.debug("testJavaMath: stop time={}", stopTime);
-        log.info("testJavaMath: time={}\n", stopTime - startTime);
+        log.info("testJavaMath: time={}", stopTime - startTime);
     }
 
     public void testJavaFastMath() throws Exception {
@@ -113,7 +113,7 @@ public class SinusGeneratorDemo {
                 long start = System.currentTimeMillis();
                 double[] output = sinusGenerator.javaFastMath(SIN_SIZE);
                 long time = System.currentTimeMillis() - start;
-                log.info("testJavaFastMath: i: {}\ttime: {}", loop, time);
+                log.debug("testJavaFastMath: i: {}\ttime: {}", loop, time);
             });
             futures.add(submit);
         }
@@ -124,7 +124,7 @@ public class SinusGeneratorDemo {
 
         long stopTime = System.currentTimeMillis();
         log.debug("testJavaFastMath: stop time={}", stopTime);
-        log.info("testJavaFastMath: time={}\n", stopTime - startTime);
+        log.info("testJavaFastMath: time={}", stopTime - startTime);
     }
 
     public void shutdown() throws Exception {
