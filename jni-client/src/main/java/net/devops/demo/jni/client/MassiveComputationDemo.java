@@ -1,7 +1,7 @@
 package net.devops.demo.jni.client;
 
 import lombok.extern.slf4j.Slf4j;
-import net.devops.demo.jni.bindings.SinusGenerator;
+import net.devops.demo.jni.bindings.MassiveComputation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,20 +9,22 @@ import java.util.List;
 import java.util.concurrent.*;
 
 @Slf4j
-public class SinusGeneratorDemo {
+public class MassiveComputationDemo {
 
-    public static final int SIN_SIZE = 1_000_000;
+    public static final int DATA_SIZE = 1_000_000;
     public static final int NUMBER_OF_ITERATIONS = 10;
-    private final SinusGenerator sinusGenerator = new SinusGenerator();
+    private final MassiveComputation massiveComputation = new MassiveComputation();
     private final ArrayBlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(500);
     private final ExecutorService executorService = new ThreadPoolExecutor(50, 100, 100, TimeUnit.SECONDS, workQueue);
+    private final double[] data;
 
-    public SinusGeneratorDemo() throws Exception {
+    public MassiveComputationDemo() throws Exception {
+        data = new double[DATA_SIZE];
         Future<?> future = executorService.submit(() -> {
-            sinusGenerator.cppOpenMp(100);
-            sinusGenerator.cppSequential(100);
-            sinusGenerator.javaMath(100);
-            sinusGenerator.javaFastMath(100);
+            massiveComputation.cppOpenMp(data);
+            massiveComputation.cppSequential(data);
+            massiveComputation.javaMath(data);
+            massiveComputation.javaFastMath(data);
         });
         future.get();
     }
@@ -36,7 +38,7 @@ public class SinusGeneratorDemo {
             final int loop = i;
             Future<?> submit = executorService.submit(() -> {
                 long start = System.currentTimeMillis();
-                double[] sinus = sinusGenerator.cppOpenMp(SIN_SIZE);
+                double[] output = massiveComputation.cppOpenMp(data);
                 long time = System.currentTimeMillis() - start;
                 log.info("testCppOpenMp: i: {}\ttime: {}", loop, time);
             });
@@ -61,7 +63,7 @@ public class SinusGeneratorDemo {
             final int loop = i;
             Future<?> submit = executorService.submit(() -> {
                 long start = System.currentTimeMillis();
-                double[] sinus = sinusGenerator.cppSequential(SIN_SIZE);
+                double[] output = massiveComputation.cppSequential(data);
                 long time = System.currentTimeMillis() - start;
                 log.info("testCppSequential: i: {}\ttime: {}", loop, time);
             });
@@ -86,7 +88,7 @@ public class SinusGeneratorDemo {
             final int loop = i;
             Future<?> submit = executorService.submit(() -> {
                 long start = System.currentTimeMillis();
-                double[] sinus = sinusGenerator.javaMath(SIN_SIZE);
+                double[] output = massiveComputation.javaMath(data);
                 long time = System.currentTimeMillis() - start;
                 log.info("testJavaMath: i: {}\ttime: {}", loop, time);
             });
@@ -111,7 +113,7 @@ public class SinusGeneratorDemo {
             final int loop = i;
             Future<?> submit = executorService.submit(() -> {
                 long start = System.currentTimeMillis();
-                double[] sinus = sinusGenerator.javaFastMath(SIN_SIZE);
+                double[] output = massiveComputation.javaFastMath(data);
                 long time = System.currentTimeMillis() - start;
                 log.info("testJavaFastMath: i: {}\ttime: {}", loop, time);
             });

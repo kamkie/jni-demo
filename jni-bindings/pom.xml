@@ -49,6 +49,7 @@
                                     <arg value="-d"/>
                                     <arg value="${project.basedir}/../jni-implementation/src/main/native"/>
                                     <arg value="net.devops.demo.jni.bindings.SinusGenerator"/>
+                                    <arg value="net.devops.demo.jni.bindings.MassiveComputation"/>
                                 </exec>
                             </target>
                         </configuration>
