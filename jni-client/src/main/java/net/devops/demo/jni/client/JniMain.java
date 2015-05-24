@@ -9,11 +9,12 @@ public class JniMain {
         final SinusGeneratorDemo sinusGeneratorDemo = new SinusGeneratorDemo();
 
         for (int i = 0; i < 10; i++) {
-            log.info("loop {} \n\n\n", i);
+            log.info("loop {}", i);
             sinusGeneratorDemo.testCppSequential();
             sinusGeneratorDemo.testCppOpenMp();
             sinusGeneratorDemo.testJavaMath();
             sinusGeneratorDemo.testJavaFastMath();
+            log.info("\n\n\n");
 
             Thread.sleep(100);
         }
@@ -21,11 +22,12 @@ public class JniMain {
 
         final MassiveComputationDemo massiveComputationDemo = new MassiveComputationDemo();
         for (int i = 0; i < 10; i++) {
-            log.info("loop {} \n\n\n", i);
+            log.info("loop {}", i);
             massiveComputationDemo.testCppSequential();
             massiveComputationDemo.testCppOpenMp();
             massiveComputationDemo.testJavaMath();
             massiveComputationDemo.testJavaFastMath();
+            log.info("\n\n\n");
 
             Thread.sleep(100);
         }
