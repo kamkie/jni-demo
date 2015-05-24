@@ -14,9 +14,9 @@ public class JniMain {
             sinusGeneratorDemo.testCppOpenMp();
             sinusGeneratorDemo.testJavaMath();
             sinusGeneratorDemo.testJavaFastMath();
-            log.info("\n\n\n");
 
-            Thread.sleep(100);
+            log.info("\n\n\n");
+            Thread.sleep(1000);
         }
         sinusGeneratorDemo.shutdown();
 
@@ -27,9 +27,9 @@ public class JniMain {
             massiveComputationDemo.testCppOpenMp();
             massiveComputationDemo.testJavaMath();
             massiveComputationDemo.testJavaFastMath();
-            log.info("\n\n\n");
 
-            Thread.sleep(100);
+            log.info("\n\n\n");
+            Thread.sleep(1000);
         }
         massiveComputationDemo.shutdown();
     }
